@@ -19,8 +19,9 @@ defmodule NetAdoptionWeb.Router do
   scope "/", NetAdoptionWeb do
     pipe_through :browser
 
-    get "/",      PageController, :home
-    get "/check", PageController, :check
+    get "/",              PageController, :home
+    get "/check",         PageController, :check
+    get "/check/:domain", PageController, :check
   end
 
   # These functions detect an HTMX request and set the proper assigns for

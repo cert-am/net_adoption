@@ -12,6 +12,7 @@ defmodule NetAdoptionWeb.PageController do
     conn
     |> assign(:dnssec_result, dnssec_res)
     |> assign(:ipv6_result,   ipv6_res)
+    |> put_resp_header("HX-Push-Url", "/check/" <> params["domain"])
     |> render(:check)
   end
 end
