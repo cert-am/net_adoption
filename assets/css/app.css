@@ -1,0 +1,29 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* This file is for your main application CSS */
+
+#loading{
+  opacity:0;
+  transition: opacity 250ms ease-in, opacity 100ms ease-out;
+}
+
+.htmx-request #loading{
+  opacity:1;
+}
+.htmx-request#loading{
+  opacity:1;
+}
+
+#check-img{
+  opacity:1;
+  transition: opacity 100ms ease-in, opacity 250ms ease-out;
+}
+
+.htmx-request #check-img{
+  opacity:0;
+}
+.htmx-request#check-img{
+  opacity:0;
+}

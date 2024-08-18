@@ -1,0 +1,74 @@
+<header class="px-4 sm:px-6 lg:px-8">
+  <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
+    <div class="flex items-center gap-4">
+      <a href="/">
+        <img src={~p"/images/logo.svg"} width="36" />
+      </a>
+      <p class="bg-brand/5 text-brand rounded-full px-2 font-medium leading-6">
+        v<%= Application.spec(:phoenix, :vsn) %>
+      </p>
+    </div>
+    <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
+      <a href="https://twitter.com/elixirphoenix" class="hover:text-zinc-700">
+        @elixirphoenix
+      </a>
+      <a href="https://github.com/phoenixframework/phoenix" class="hover:text-zinc-700">
+        GitHub
+      </a>
+      <a
+        href="https://hexdocs.pm/phoenix/overview.html"
+        class="rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80"
+      >
+        Get Started <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="px-4 py-20 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-2xl">
+    <.flash_group flash={@flash} />
+<form
+  hx-get="/check"
+  hx-target="#result"
+  hx-push-url="true"
+  id="check"
+  hx-indicator="#check-btn"
+>
+<div>
+  <div>
+    <label for="hs-trailing-button-add-on-with-icon" class="sr-only">Label</label>
+    <div class="flex rounded-lg shadow-sm">
+      <input type="text" name="domain" class="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-s-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+      <button id="check-btn" type="submit" class="w-[2.875rem] h-[2.875rem] shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+        <svg id="check-img" class="absolute shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+         <span class="absolute animate-spin inline-block size-4 border-[3px] border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading" id="loading">
+          <span class="sr-only">Loading...</span>
+        </span>
+     </button>
+    </div>
+  </div>
+</div>
+</form>
+
+
+<!--
+<form
+  hx-get="/check"
+  hx-target="#result"
+  id="check"
+  hx-indicator="#loading"
+>
+<input type="text" name="domain" />
+<br>
+<button>Check!</button>
+</form>
+-->
+<!-- <img id="loading" class="htmx-indicator" src={~p"/images/loading.svg"} > -->
+<div id="result">
+</div>
+    <%= @inner_content %>
+  </div>
+</main>
