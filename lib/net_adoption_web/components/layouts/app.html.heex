@@ -29,7 +29,7 @@
     <.flash_group flash={@flash} />
 <form
   hx-get="/check"
-  hx-target="#result"
+  hx-target="#main"
   hx-push-url="true"
   id="check"
   hx-indicator="#check-btn"
@@ -54,20 +54,7 @@
 </form>
 
 
-<!--
-<form
-  hx-get="/check"
-  hx-target="#result"
-  id="check"
-  hx-indicator="#loading"
->
-<input type="text" name="domain" />
-<br>
-<button>Check!</button>
-</form>
--->
-<!-- <img id="loading" class="htmx-indicator" src={~p"/images/loading.svg"} > -->
-<div id="result">
+<div id="main">
 </div>
     <%= @inner_content %>
   </div>
