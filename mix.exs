@@ -55,8 +55,10 @@ defmodule NetAdoption.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
+      {:httpoison, "~> 2.2"},
       {:dns, "~> 2.4"},
-      {:dnssec, "~> 0.1.2"}
+      {:dnssec, "~> 0.1.2"},
+      {:idna, "~> 6.1"}
     ]
   end
 

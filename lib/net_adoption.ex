@@ -7,8 +7,24 @@ defmodule NetAdoption do
   if it comes from the database, an external API or others.
   """
 
+  # TODO: this function should return all the data that we need.
+  #def check_domain(domain) do
+  #  {:error, "put error here"}
+  #  OR
+  #  {:ok,
+  #    %{
+  #      ipv4: [],
+  #      mx: [],
+  #      tls: true,
+  #      ipv6: [],
+  #      dnssec: true
+  #    }
+  #  }
+  #end
+
   def check_dnssec(domain) do
     domain
+    |> :idna.encode
     |> has_dnssec?
     |> inspect(limit: :infinity, pretty: true)
   end
@@ -26,6 +42,7 @@ defmodule NetAdoption do
 
   def check_ipv6(domain) do
     domain
+    |> :idna.encode
     |> has_ipv6?
     |> inspect(limit: :infinity, pretty: true)
   end

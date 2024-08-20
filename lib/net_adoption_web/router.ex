@@ -22,6 +22,8 @@ defmodule NetAdoptionWeb.Router do
     get "/",              PageController, :home
     get "/check",         PageController, :check
     get "/check/:domain", PageController, :check
+
+    get "/about",         PageController, :about
   end
 
   # These functions detect an HTMX request and set the proper assigns for

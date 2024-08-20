@@ -677,4 +677,34 @@ defmodule NetAdoptionWeb.CoreComponents do
   def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
   end
+
+  def domain_checker(%{domain: domain} = assigns) do
+    ~H"""
+    <form
+      hx-get="/check"
+      hx-target="#result"
+      hx-swap="outerHTML"
+      id="check"
+      hx-indicator="#check-btn"
+    >
+      <div>
+        <div>
+          <label for="hs-trailing-button-add-on-with-icon" class="sr-only">Label</label>
+          <div class="flex rounded-lg shadow-sm">
+            <input type="text" name="domain" class="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-s-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" value={domain}>
+            <button id="check-btn" type="submit" class="w-[2.875rem] h-[2.875rem] shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+              <svg id="check-img" class="absolute shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </svg>
+               <span class="absolute animate-spin inline-block size-4 border-[3px] border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading" id="loading">
+                <span class="sr-only">Loading...</span>
+              </span>
+           </button>
+          </div>
+        </div>
+      </div>
+      </form>
+    """
+  end
 end
