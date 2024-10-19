@@ -4,26 +4,28 @@
 
 /* This file is for your main application CSS */
 
-#loading{
-  opacity:0;
+#loading {
+  display: none;
   transition: opacity 250ms ease-in, opacity 100ms ease-out;
 }
 
-.htmx-request #loading{
-  opacity:1;
-}
-.htmx-request#loading{
-  opacity:1;
+.htmx-request #loading {
+  display: flex;
 }
 
-#check-img{
-  opacity:1;
+.htmx-request#loading {
+  display: flex;
+}
+
+#check-img {
+  display: flex;
   transition: opacity 100ms ease-in, opacity 250ms ease-out;
 }
 
-.htmx-request #check-img{
-  opacity:0;
+.htmx-request #check-img {
+  display: none;
 }
-.htmx-request#check-img{
-  opacity:0;
+
+.htmx-request#check-img {
+  display: none;
 }

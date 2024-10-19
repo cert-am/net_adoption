@@ -128,9 +128,10 @@ defmodule NetAdoptionWeb.CoreComponents do
       </p>
       <p class="mt-2 text-sm leading-5"><%= msg %></p>
       <button
-          type="button"
-          hx-on:click="document.getElementById('flash-group').remove()"
-          class="group absolute top-1 right-1 p-2" aria-label={gettext("close")}
+        type="button"
+        hx-on:click="document.getElementById('flash-group').remove()"
+        class="group absolute top-1 right-1 p-2"
+        aria-label={gettext("close")}
       >
         <.icon name="hero-x-mark-solid" class="h-5 w-5 opacity-40 group-hover:opacity-70" />
       </button>
@@ -680,31 +681,92 @@ defmodule NetAdoptionWeb.CoreComponents do
 
   def domain_checker(%{domain: domain} = assigns) do
     ~H"""
-    <form
-      hx-get="/check"
-      hx-target="#result"
-      hx-swap="outerHTML"
-      id="check"
-      hx-indicator="#check-btn"
-    >
-      <div>
-        <div>
-          <label for="hs-trailing-button-add-on-with-icon" class="sr-only">Label</label>
-          <div class="flex rounded-lg shadow-sm">
-            <input type="text" name="domain" class="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-s-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" value={domain}>
-            <button id="check-btn" type="submit" class="w-[2.875rem] h-[2.875rem] shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-              <svg id="check-img" class="absolute shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <form hx-get="/check" hx-target="#result" hx-swap="outerHTML" id="check" hx-indicator="#check-btn" class="flex justify-center">
+      <div class="w-full sm:w-[80%]">
+        <label for="hs-trailing-button-add-on-with-icon" class="sr-only">Label</label>
+        <div class="flex justify-center items-center rounded-full shadow-2xl px-5 py-2">
+          <input type="text" name="domain" class="w-full border-none focus:ring-0" value={domain} required />
+          <button
+            id="check-btn"
+            type="submit"
+            class="w-[5rem] sm:w-[10rem] h-[2rem] px-1 bg-[#3a5f7e] text-sm font-semibold text-white rounded-full"
+          >
+            <div id="check-img" class="w-full flex justify-center items-center gap-1">
+              <svg
+                class="size-4"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.3-4.3"></path>
               </svg>
-               <span class="absolute animate-spin inline-block size-4 border-[3px] border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading" id="loading">
-                <span class="sr-only">Loading...</span>
+              <span class="hidden sm:flex">Փնտրել</span>
+            </div>
+
+            <div
+              class="flex justify-center items-center gap-1"
+              role="status"
+              aria-label="loading"
+              id="loading"
+            >
+              <span class="animate-spin inline-block size-4 border-[3px] border-current border-t-transparent text-white rounded-full">
               </span>
-           </button>
-          </div>
+
+              <span class="hidden sm:flex">Համբերություն</span>
+            </div>
+          </button>
         </div>
       </div>
-      </form>
+    </form>
+    """
+  end
+
+  def rate(%{rating: rating} = assigns) do
+    full_stars = floor(rating)
+    half_star = if rating - full_stars > 0, do: 1, else: 0
+    empty_stars = 5 - full_stars - half_star
+
+    ~H"""
+    <div class="flex">
+      <%= for _ <- 1..full_stars do %>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-yellow-500 w-8 h-auto fill-current"
+          viewBox="0 0 16 16"
+        >
+          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+        </svg>
+      <% end %>
+
+      <%= if half_star == 1 do %>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-yellow-500 w-8 h-auto fill-current"
+          viewBox="0 0 16 16"
+        >
+          <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
+        </svg>
+      <% end %>
+
+      <%= if empty_stars > 0 do %>
+        <%= for _ <- 1..empty_stars do %>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="text-yellow-500 w-8 h-auto fill-current"
+            viewBox="0 0 16 16"
+          >
+            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+          </svg>
+        <% end %>
+      <% end %>
+    </div>
     """
   end
 end
