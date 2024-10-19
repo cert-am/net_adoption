@@ -9,12 +9,16 @@ defmodule NetAdoptionWeb.PageController do
   # TODO: add pattern matching when domain is empty
   def check(conn, params) do
     # TODO: Add a case where we check if the domain is empty
-    dnssec_res = NetAdoption.check_dnssec(params["domain"])
-    ipv6_res   = NetAdoption.check_ipv6(params["domain"])
+    {:ok, domain} = NetAdoption.check_domain(params["domain"])
+
     conn
-    |> assign(:dnssec_result, dnssec_res)
-    |> assign(:ipv6_result,   ipv6_res)
-    |> assign(:domain,        params["domain"])
+    |> assign(:domain, params["domain"])
+    |> assign(:dnssec_result, domain.dnssec)
+    |> assign(:ipv4_result,   domain.ipv4)
+    |> assign(:ipv6_result,   domain.ipv6)
+    |> assign(:mx_result,     domain.mx)
+    |> assign(:tls_result,    domain.tls)
+    |> assign(:domain,        domain.name)
     |> put_resp_header("HX-Push-Url", "/check/" <> URI.encode(params["domain"]))
     |> render(:check)
   end

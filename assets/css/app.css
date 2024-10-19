@@ -5,25 +5,25 @@
 /* This file is for your main application CSS */
 
 #loading{
-  opacity:0;
+  display: none;
   transition: opacity 250ms ease-in, opacity 100ms ease-out;
 }
 
 .htmx-request #loading{
-  opacity:1;
+  display: flex;
 }
 .htmx-request#loading{
-  opacity:1;
+  display: flex;
 }
 
 #check-img{
-  opacity:1;
+  display: flex;
   transition: opacity 100ms ease-in, opacity 250ms ease-out;
 }
 
 .htmx-request #check-img{
-  opacity:0;
+  display: none;
 }
 .htmx-request#check-img{
-  opacity:0;
+  display: none;
 }
