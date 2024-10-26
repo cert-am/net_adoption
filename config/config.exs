@@ -7,6 +7,12 @@
 # General application configuration
 import Config
 
+config :net_adoption, NetAdoption.Repo,
+  database: "net_adoption_repo",
+  username: "postgres",
+  password: "postgresqluserpassword",
+  hostname: "localhost"
+
 config :net_adoption,
   generators: [timestamp_type: :utc_datetime]
 
@@ -54,3 +60,5 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
+
+config :net_adoption, ecto_repos: [NetAdoption.Repo]

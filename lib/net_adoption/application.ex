@@ -8,6 +8,7 @@ defmodule NetAdoption.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      NetAdoption.Repo,
       NetAdoptionWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:net_adoption, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: NetAdoption.PubSub},
