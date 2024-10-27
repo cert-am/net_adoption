@@ -1,8 +1,36 @@
 <div id="result">
-    <.domain_checker domain="" />
+
+    <div class="mx-auto max-w-screen-lg flex justify-center items-center gap-40">
+        <div class="w-full flex flex-col gap-5">
+            <.domain_checker domain="" />
+        </div>
+        <div class="w-full flex flex-col gap-5">
+            <div class="flex justify-end text-2xl font-bold text-[#3a5f7e]">Քո կապը</div>
+            <div class="flex flex-col gap-1">
+                <div class="flex justify-between gap-2 flex-wrap">
+                    <div class="w-[20%] sm:w-[10%] flex items-center">IPv4</div>
+                    <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
+                        <div
+                            class="w-full bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
+                            195.250.72.136
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between gap-2 flex-wrap">
+                    <div class="w-[20%] sm:w-[10%] flex items-center">IPv6</div>
+                    <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
+                        <div
+                            class="w-full bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
+                            2001:470:7A1B:2001:1411:0:0:80
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-    <div class="mx-auto max-w-screen-xl flex flex-wrap justify-between items-center my-20 gap-5">
+    <div class="mx-auto flex flex-wrap justify-between items-center my-20 gap-5">
 
 
         <%= for {category, organizations} <- @organizations_by_category do %>
