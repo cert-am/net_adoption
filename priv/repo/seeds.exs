@@ -15,7 +15,10 @@ defmodule CSVImporter do
 
   defp process_line(line) do
     [name, category, domain_name | _] = String.split(line, ",")
-    category = String.trim(category)
+    name = String.trim(name, "\"")
+    category = String.trim(category, "\"")
+    domain_name = String.trim(domain_name, "\"")
+
 
     # Insert organization
     case Repo.insert(%Organization{name: String.trim(name), category: category}) do
@@ -41,4 +44,3 @@ end
 
 # Call the import function
 CSVImporter.import()
-
