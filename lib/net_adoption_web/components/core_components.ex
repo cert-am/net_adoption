@@ -679,10 +679,10 @@ defmodule NetAdoptionWeb.CoreComponents do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
   end
 
-  def domain_checker(%{domain: domain, w: w} = assigns) do
+  def domain_checker(%{domain: domain} = assigns) do
     ~H"""
     <form hx-get="/check" hx-target="#result" hx-swap="outerHTML" id="check" hx-indicator="#check-btn" class="flex justify-center">
-      <div class={"w-full sm:w-#{w}"}>
+      <div class="w-full"}>
         <label for="hs-trailing-button-add-on-with-icon" class="sr-only">Label</label>
         <div class="flex justify-center items-center rounded-full shadow-2xl px-5 py-2">
           <input type="text" name="domain" placeholder="Ստոգել դոմեն"  class="w-full border-none focus:ring-0" value={domain} required />
