@@ -1,12 +1,13 @@
 <div id="result">
 
-    <div class="max-w-screen-lg mx-auto flex justify-end text-2xl font-bold text-[#3a5f7e] my-5">Քո կապը</div>
+    <div class="max-w-screen-lg mx-auto sm:flex justify-end text-2xl font-bold text-[#3a5f7e] my-5 hidden">Քո կապը</div>
 
-    <div class="mx-auto max-w-screen-lg flex justify-center items-center gap-40">
-        <div class="w-full flex flex-col gap-5">
+    <div
+        class="mx-auto max-w-screen-lg flex justify-center items-center sm:flex-nowrap flex-wrap gap-x-20 md:gap-x-10 lg:gap-x-40">
+        <div class="w-full sm:w-[48%] flex flex-col gap-5">
             <.domain_checker domain="" w="full" />
         </div>
-        <div class="w-full flex flex-col gap-5">
+        <div class="w-[48%] hidden sm:flex flex-col gap-5">
             <div class="flex flex-col gap-1">
                 <div class="flex justify-between gap-2 flex-wrap">
                     <div class="w-[20%] sm:w-[10%] flex items-center">IPv4</div>
@@ -30,16 +31,17 @@
         </div>
     </div>
 
-    <div class="w-full flex justify-center items-center">
-        <span class="text-[#3a5f7e] font-bold text-4xl mt-40">ՀԱՅԿԱԿԱՆ ԿԱԶՄԱԿԵՐՊՈՒԹՅՈՒՆՆԵՐԻ ՑԱՆԿ</span>
-    </div>
 
+    <span class="text-[#3a5f7e] font-bold text-lg sm:text-2xl md:text-4xl lg:text-5xl mt-20 md:mt-40 break-words mx-auto block text-center">
+        ՀԱՅԿԱԿԱՆ ԿԱԶՄԱԿԵՐՊՈՒԹՅՈՒՆՆԵՐԻ ՑԱՆԿ
+    </span>
+    
 
-    <div class="mx-auto flex flex-wrap justify-between items-center my-20 gap-5">
+    <div class="mx-auto flex flex-wrap justify-center items-center my-20 gap-5">
 
 
         <%= for {category, organizations} <- @organizations_by_category do %>
-            <div class="lg:w-[30%] w-full mt-1 rounded-2xl p-6 text-center shadow-2xl item">
+            <div class="lg:w-[30%] min-w-[25em] w-full mt-1 rounded-2xl p-6 text-center shadow-2xl item">
                 <div
                     class="mx-auto flex h-16 w-16 -translate-y-12 transform items-center justify-center rounded-full bg-[#3a5f7e] shadow-lg shadow-[#c3cfd8]">
 
@@ -66,7 +68,8 @@
                                 <% end %>
 
                                     <%= if length(organizations)> 5 do %>
-                                        <button hx-get={"organizations/#{category}"} hx-target="#main" hx-push-url={"organizations/#{category}"}>
+                                        <button hx-get={"organizations/#{category}"} hx-target="#main"
+                                            hx-push-url={"organizations/#{category}"}>
                                             տեսնել բոլորը
                                         </button>
                                         <% end %>
