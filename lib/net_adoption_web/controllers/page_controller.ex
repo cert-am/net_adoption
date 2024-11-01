@@ -1,6 +1,8 @@
 defmodule NetAdoptionWeb.PageController do
   use NetAdoptionWeb, :controller
 
+  import Ecto.Query, only: [where: 3]
+
   alias NetAdoption.Repo
   alias NetAdoption.Organization
 
@@ -35,4 +37,15 @@ defmodule NetAdoptionWeb.PageController do
     conn
     |> render(:about)
   end
+
+  def show_category(conn, %{"category" => category}) do
+    organizations =
+      Organization
+      |> where([o], o.category == ^category)
+      |> Repo.all()
+      |> Repo.preload(:domains)
+
+    render(conn, :show_category, organizations: organizations, category: category, rate: 5)
+  end
+
 end

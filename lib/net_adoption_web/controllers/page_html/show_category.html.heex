@@ -1,0 +1,52 @@
+<div class="mx-auto w-full max-w-screen-2xl mt-20 text-center">
+    <h1 class="text-[#3a5f7e] mb-3 text-4xl font-bold uppercase">
+        <%= @category %> Կազմակերպություններ
+    </h1>
+
+    <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Անուն
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Դոմեն(ներ)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Գնահատական
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <%= for organization <- @organizations do %>
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                            <%= organization.name %>
+                        </th>
+                        <td class="px-6 py-4">
+                            <%= for domain <- organization.domains do %>
+                                <a href={"https://#{domain.domain}"} target="_blank">
+                                    https://<%= domain.domain %>
+                                </a>
+                                <% end %>
+                        </td>
+                        <td class="px-6 py-4">
+                            <.rate rating={@rate} size={20} />
+                        </td>
+                        <td class="px-6 py-4">
+                            Թեստ
+                        </td>
+                    </tr>
+                    <% end %>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="mx-auto w-full max-w-screen-2xl flex justify-end py-5 underline text-sm text-blue-500">
+    <a href="/">Վերադառնալ նախորդ էջ</a>
+</div>

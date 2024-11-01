@@ -23,6 +23,8 @@ defmodule NetAdoptionWeb.Router do
     get "/check/:domain", PageController, :check
 
     get "/about",         PageController, :about
+
+    get "/organizations/:category", PageController, :show_category
   end
 
   # Other scopes may use custom stacks.
