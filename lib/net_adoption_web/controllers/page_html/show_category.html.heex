@@ -1,5 +1,5 @@
 <div class="mx-auto w-full max-w-screen-2xl mt-20 text-[#3a5f7e]">
-    <h1 class="mb-3 text-4xl font-bold uppercase">
+    <h1 class="mb-3 text-4xl font-bold uppercase break-words">
         <%= @category %> Կազմակերպություններ
     </h1>
 
@@ -27,7 +27,7 @@
                                         https://<%= domain.domain %>
                                     </a>
                                     <a href={"/check/#{domain.domain}"}>
-                                        <.rate rating={@rating} size={20} />
+                                        <.draw_stars rating={@rating} size={20} />
                                     </a>
                                 </div>
                                 <% end %>

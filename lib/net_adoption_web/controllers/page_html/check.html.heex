@@ -1,6 +1,6 @@
 <div id="result" class="flex justify-center flex-col gap-5">
     <div class="mx-auto w-[80%]">
-      <.domain_checker domain={@domain}/>
+        <.domain_checker domain={@domain} />
     </div>
     <div class="w-full mt-5">
         <div class="flex justify-between items-center p-5 flex-wrap-reverse">
@@ -8,7 +8,7 @@
                 <%= @domain %>
             </span>
             <span class="hidden sm:flex">
-                <.rate rating={5} size={32}/>
+                <.draw_stars rating={5} size={32} />
             </span>
         </div>
         <div class="flex flex-col gap-2 shadow-2xl p-5 rounded-2xl">
@@ -71,5 +71,9 @@
             </div>
         </div>
 
+    </div>
+
+    <div class="mx-auto w-full max-w-screen-2xl flex justify-end py-5 underline text-sm text-blue-500">
+        <a href="/">Վերադառնալ նախորդ էջ</a>
     </div>
 </div>
