@@ -45,7 +45,7 @@ defmodule NetAdoptionWeb.PageController do
       |> Repo.all()
       |> Repo.preload(:domains)
 
-    render(conn, :show_category, organizations: organizations, category: category, rate: 5)
+    render(conn, :show_category, organizations: organizations, category: category, rating: 5)
   end
 
 end

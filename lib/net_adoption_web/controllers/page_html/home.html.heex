@@ -37,7 +37,7 @@
     </span>
     
 
-    <div class="mx-auto flex flex-wrap justify-center items-center my-20 gap-5">
+    <div class="mx-auto flex flex-wrap sm:justify-between justify-center items-center my-20 gap-5">
 
 
         <%= for {category, organizations} <- @organizations_by_category do %>
@@ -55,7 +55,7 @@
                     <%= category %>
                 </h1>
                 <div class="flex justify-center items-center flex-col px-1 text-[#3a5f7e] font-medium">
-                    <%= for organization <- Enum.take(organizations, 5) do %>
+                    <%= for organization <- Enum.take(organizations, 8) do %>
                         <%= for domain <- organization.domains do %>
                             <div class="w-full flex justify-between items-center flex-wrap text-sm sm:text-xl">
                                 <a href={"https://#{domain.domain}"} target="_blank"
@@ -67,9 +67,9 @@
                             <% end %>
                                 <% end %>
 
-                                    <%= if length(organizations)> 5 do %>
+                                    <%= if length(organizations)> 8 do %>
                                         <button hx-get={"organizations/#{category}"} hx-target="#main"
-                                            hx-push-url={"organizations/#{category}"}>
+                                            hx-push-url={"organizations/#{category}"} class="hover:underline">
                                             տեսնել բոլորը
                                         </button>
                                         <% end %>

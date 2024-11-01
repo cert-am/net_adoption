@@ -1,43 +1,36 @@
-<div class="mx-auto w-full max-w-screen-2xl mt-20 text-center">
-    <h1 class="text-[#3a5f7e] mb-3 text-4xl font-bold uppercase">
+<div class="mx-auto w-full max-w-screen-2xl mt-20 text-[#3a5f7e]">
+    <h1 class="mb-3 text-4xl font-bold uppercase">
         <%= @category %> Կազմակերպություններ
     </h1>
 
-    <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        Անուն
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Դոմեն(ներ)
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Գնահատական
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
+    <div class="container">
+        <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
+            <thead class="text-white">
                 <%= for organization <- @organizations do %>
-                    <tr class="bg-white border-b">
-                        <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                    <tr
+                        class="bg-[#3a5f7e] flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                        <th class="p-3 text-left">Անուն</th>
+                        <th class="p-3 text-left">Դոմեն(ներ)</th>
+                    </tr>
+                    <% end %>
+            </thead>
+            <tbody class="flex-1 sm:flex-none">
+                <%= for organization <- @organizations do %>
+                    <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+                        <td class="border-grey-light border hover:bg-gray-100 p-3">
                             <%= organization.name %>
-                        </th>
-                        <td class="px-6 py-4">
+                        </td>
+                        <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">
                             <%= for domain <- organization.domains do %>
-                                <a href={"https://#{domain.domain}"} target="_blank">
-                                    https://<%= domain.domain %>
-                                </a>
+                                <div class="flex justify-between items-center">
+                                    <a href={"https://#{domain.domain}"} target="_blank">
+                                        https://<%= domain.domain %>
+                                    </a>
+                                    <a href={"/check/#{domain.domain}"}>
+                                        <.rate rating={@rating} size={20} />
+                                    </a>
+                                </div>
                                 <% end %>
-                        </td>
-                        <td class="px-6 py-4">
-                            <.rate rating={@rate} size={20} />
-                        </td>
-                        <td class="px-6 py-4">
-                            Թեստ
                         </td>
                     </tr>
                     <% end %>
@@ -45,8 +38,8 @@
         </table>
     </div>
 
-</div>
+    <div class="mx-auto w-full max-w-screen-2xl flex justify-end py-5 underline text-sm text-blue-500">
+        <a href="/">Վերադառնալ նախորդ էջ</a>
+    </div>
 
-<div class="mx-auto w-full max-w-screen-2xl flex justify-end py-5 underline text-sm text-blue-500">
-    <a href="/">Վերադառնալ նախորդ էջ</a>
 </div>
