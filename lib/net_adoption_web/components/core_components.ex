@@ -681,11 +681,25 @@ defmodule NetAdoptionWeb.CoreComponents do
 
   def domain_checker(%{domain: domain} = assigns) do
     ~H"""
-    <form hx-get="/check" hx-target="#result" hx-swap="outerHTML" id="check" hx-indicator="#check-btn" class="flex justify-center">
+    <form
+      hx-get="/check"
+      hx-target="#result"
+      hx-swap="outerHTML"
+      id="check"
+      hx-indicator="#check-btn"
+      class="flex justify-center"
+    >
       <div class="w-full">
         <label for="hs-trailing-button-add-on-with-icon" class="sr-only">Label</label>
         <div class="flex justify-center items-center rounded-full shadow-2xl px-5 py-2">
-          <input type="text" name="domain" placeholder="Ստոգել դոմեն"  class="w-full border-none focus:ring-0" value={domain} required />
+          <input
+            type="text"
+            name="domain"
+            placeholder="Ստոգել դոմեն"
+            class="w-full border-none focus:ring-0"
+            value={domain}
+            required
+          />
           <button
             id="check-btn"
             type="submit"
@@ -736,7 +750,6 @@ defmodule NetAdoptionWeb.CoreComponents do
     colors = ["#ff4545", "#ffa534", "#ffe234", "#b7dd29", "#57e32c"]
     color = Enum.at(colors, trunc(rating - 1))
 
-
     ~H"""
     <div class="flex gap-1">
       <%= for _ <- 1..full_stars do %>
@@ -780,4 +793,11 @@ defmodule NetAdoptionWeb.CoreComponents do
     """
   end
 
+  def previous_page_link(assigns) do
+    ~H"""
+    <div class="mx-auto w-full max-w-screen-2xl flex justify-end py-5 underline text-sm text-blue-500">
+      <a href="javascript:void(0);" onclick="window.history.back()">Վերադառնալ նախորդ էջ</a>
+    </div>
+    """
+  end
 end
