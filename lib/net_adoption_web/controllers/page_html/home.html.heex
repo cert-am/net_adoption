@@ -32,10 +32,11 @@
     </div>
 
 
-    <span class="text-[#3a5f7e] font-bold text-lg sm:text-2xl md:text-4xl lg:text-5xl mt-20 md:mt-40 break-words mx-auto block text-center">
+    <span
+        class="text-[#3a5f7e] font-bold text-lg sm:text-2xl md:text-4xl lg:text-5xl mt-20 md:mt-40 break-words mx-auto block text-center">
         ՀԱՅԿԱԿԱՆ ԿԱԶՄԱԿԵՐՊՈՒԹՅՈՒՆՆԵՐԻ ՑԱՆԿ
     </span>
-    
+
 
     <div class="mx-auto flex flex-wrap sm:justify-between justify-center items-center my-20 gap-5">
 
@@ -57,12 +58,14 @@
                 <div class="flex justify-center items-center flex-col px-1 text-[#3a5f7e] font-medium">
                     <%= for organization <- Enum.take(organizations, 8) do %>
                         <%= for domain <- organization.domains do %>
-                            <div class="w-full flex justify-between items-center flex-wrap text-sm sm:text-xl">
+                            <div class="w-full flex justify-between items-center flex-wrap text-sm sm:text-xl hover:bg-[rgba(0,0,0,0.1)]">
                                 <a href={"https://#{domain.domain}"} target="_blank"
                                     class="hover:scale-105 transition-all">
                                     <%= domain.domain %>
                                 </a>
-                                <.draw_stars rating={5} size={20} />
+                                <a href={"/check/#{domain.domain}"} class="hover:scale-105 transition-all">
+                                    <.draw_stars rating={5} size={20} />
+                                </a>
                             </div>
                             <% end %>
                                 <% end %>
