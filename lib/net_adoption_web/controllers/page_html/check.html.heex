@@ -1,36 +1,36 @@
-<div id="result" class="flex justify-center flex-col gap-5">
+<div id="result" class="flex flex-col justify-center gap-5">
     <div class="mx-auto w-[80%]">
         <.domain_checker domain={@domain} />
     </div>
     <div class="w-full mt-5">
-        <div class="flex justify-between items-center p-5 flex-wrap-reverse">
-            <span class="text-[#3a5f7e] font-bold text-4xl">
+        <div class="flex flex-wrap-reverse items-center justify-between p-5">
+          <a href={"https://#{@domain}"} target="_blank" class="text-[#3a5f7e] font-bold text-4xl">
                 <%= @domain %>
-            </span>
+          </a>
             <span class="hidden sm:flex">
                 <.draw_stars rating={5} size={32} />
             </span>
         </div>
-        <div class="flex flex-col gap-2 shadow-2xl p-5 rounded-2xl">
-            <div class="flex justify-between gap-2 flex-wrap">
+        <div class="flex flex-col p-5 shadow-2xl gap-2 rounded-2xl">
+            <div class="flex flex-wrap justify-between gap-2">
                 <div class="w-[20%] sm:w-[10%] flex items-center">IPv4</div>
                 <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
                     <div
-                        class="w-full bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
+                        class="w-full p-2 overflow-auto text-green-500 bg-green-100 border-2 border-green-500 rounded-xl">
                         <%= @ipv4_result %>
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between gap-2 flex-wrap">
+            <div class="flex flex-wrap justify-between gap-2">
                 <div class="w-[20%] sm:w-[10%] flex items-center">IPv6</div>
                 <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
                     <div
-                        class="w-full bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
+                        class="w-full p-2 overflow-auto text-green-500 bg-green-100 border-2 border-green-500 rounded-xl">
                         <%= @ipv6_result %>
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between gap-2 flex-wrap">
+            <div class="flex flex-wrap justify-between gap-2">
                 <div class="w-[20%] sm:w-[10%] flex items-center">MX</div>
                 <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
                     <div
@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between gap-2 flex-wrap">
+            <div class="flex flex-wrap justify-between gap-2">
                 <div class="w-[20%] sm:w-[10%] flex items-center">HTTPS</div>
                 <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
                     <div
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between gap-2 flex-wrap">
+            <div class="flex flex-wrap justify-between gap-2">
                 <div class="w-[20%] sm:w-[10%] flex items-center">DNSSEC</div>
                 <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
                     <div
