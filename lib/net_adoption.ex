@@ -7,26 +7,11 @@ defmodule NetAdoption do
   if it comes from the database, an external API or others.
   """
 
-  # TODO: this function should return all the data that we need.
-  # def check_domain(domain) do
-  #  {:error, "put error here"}
-  #  OR
-  #  {:ok,
-  #    %{
-  #      ipv4: [],
-  #      mx: [],
-  #      tls: true,
-  #      ipv6: [],
-  #      dnssec: true
-  #    }
-  #  }
-  # end
-
   def check_domain(domain) do
     ipv4 = check_ipv4(domain)
     ipv6 = check_ipv6(domain)
     mx = "MX"
-    tls = "TLS"
+    tls = check_tls(domain)
     dnssec = check_dnssec(domain)
 
     {
@@ -40,6 +25,14 @@ defmodule NetAdoption do
         dnssec: dnssec
       }
     }
+  end
+
+  defp check_tls(domain) do
+    url = "https://" <> domain
+    case :httpc.request(:head, {to_charlist(url), []}, [{:timeout, 5000}], []) do
+      {:ok, _response} -> true
+      {:error, _} -> false
+    end
   end
 
   defp check_dnssec(domain) do
@@ -135,3 +128,4 @@ defmodule NetAdoption do
     |> Enum.join(".")
   end
 end
+
