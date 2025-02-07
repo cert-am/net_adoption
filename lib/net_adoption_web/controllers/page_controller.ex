@@ -12,8 +12,23 @@ defmodule NetAdoptionWeb.PageController do
       |> Repo.preload(:domains)
       |> Enum.group_by(& &1.category)
 
+    user_ip = get_user_ip(conn)
+
     conn
-    |> render(:home, organizations_by_category: organizations)
+    |> render(:home, 
+      organizations_by_category: organizations,
+      ipv4: user_ip.ipv4,
+      ipv6: user_ip.ipv6
+    )
+  end
+
+  defp get_user_ip(conn) do
+    ip_string = conn.remote_ip |> :inet.ntoa() |> to_string()
+
+    cond do
+      String.contains?(ip_string, ":") -> %{ipv4: nil, ipv6: ip_string}  # IPv6 detected
+      true -> %{ipv4: ip_string, ipv6: nil}  # IPv4 detected
+    end
   end
 
   # TODO: add pattern matching when domain is empty
@@ -47,5 +62,5 @@ defmodule NetAdoptionWeb.PageController do
 
     render(conn, :show_category, organizations: organizations, category: category, rating: 5)
   end
-
 end
+

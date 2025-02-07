@@ -1,36 +1,38 @@
 <div id="result">
 
-    <div class="max-w-screen-lg mx-auto sm:flex justify-end text-2xl font-bold text-[#3a5f7e] my-5 hidden">Քո կապը</div>
+<div class="max-w-screen-lg mx-auto sm:flex justify-end text-2xl font-bold text-[#3a5f7e] my-5 hidden">Քո կապը</div>
 
-    <div
-        class="mx-auto max-w-screen-lg flex justify-center items-center sm:flex-nowrap flex-wrap gap-x-20 md:gap-x-10 lg:gap-x-40">
-        <div class="w-full sm:w-[48%] flex flex-col gap-5">
-            <.domain_checker domain="" w="full" />
-        </div>
-        <div class="w-[48%] hidden sm:flex flex-col gap-5">
-            <div class="flex flex-col gap-1">
-                <div class="flex justify-between gap-2 flex-wrap">
-                    <div class="w-[20%] sm:w-[10%] flex items-center">IPv4</div>
-                    <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
-                        <div
-                            class="w-full bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
-                            195.250.72.136
-                        </div>
+<div class="mx-auto max-w-screen-lg flex justify-center items-center sm:flex-nowrap flex-wrap gap-x-20 md:gap-x-10 lg:gap-x-40">
+    <div class="w-full sm:w-[48%] flex flex-col gap-5">
+        <.domain_checker domain="" w="full" />
+    </div>
+    <div class="w-[48%] hidden sm:flex flex-col gap-5">
+        <div class="flex flex-col gap-1">
+            <div class="flex justify-between gap-2 flex-wrap">
+                <div class="w-[20%] sm:w-[10%] flex items-center">IPv4</div>
+                <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
+                    <div class={
+                      "w-full border-2 rounded-xl p-2 overflow-auto " <>
+                      if @ipv4, do: "bg-green-100 border-green-500 text-green-500", else: "bg-red-100 border-red-500 text-red-500"
+                    }>
+                        <%= @ipv4 || "Not detected" %>
                     </div>
                 </div>
-                <div class="flex justify-between gap-2 flex-wrap">
-                    <div class="w-[20%] sm:w-[10%] flex items-center">IPv6</div>
-                    <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
-                        <div
-                            class="w-full bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
-                            2001:470:7A1B:2001:1411:0:0:80
-                        </div>
+            </div>
+            <div class="flex justify-between gap-2 flex-wrap">
+                <div class="w-[20%] sm:w-[10%] flex items-center">IPv6</div>
+                <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
+                    <div class={
+                      "w-full border-2 rounded-xl p-2 overflow-auto " <>
+                      if @ipv6, do: "bg-green-100 border-green-500 text-green-500", else: "bg-red-100 border-red-500 text-red-500"
+                    }>
+                        <%= @ipv6 || "Not detected" %>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+</div>
 
     <span
         class="text-[#3a5f7e] font-bold text-lg sm:text-2xl md:text-4xl lg:text-5xl mt-20 md:mt-40 break-words mx-auto block text-center">
