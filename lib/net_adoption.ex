@@ -29,11 +29,32 @@ defmodule NetAdoption do
 
   defp check_tls(domain) do
     url = "https://" <> domain
+
     case :httpc.request(:head, {to_charlist(url), []}, [{:timeout, 5000}], []) do
       {:ok, _response} -> true
       {:error, _} -> false
     end
   end
+
+  defp check_http_redirect_to_https(domain) do
+    url = "http://" <> domain
+
+    case :httpc.request(:get, {to_charlist(url), []}, [{:timeout, 5000}, {:autoredirect, false}], []) do
+      {:ok, {{_, status_code, _}, headers, _}} when status_code in [301, 302] ->
+        case List.keyfind(headers, 'location', 0) do
+          {'location', location} ->
+            location = to_string(location)  # Convert charlist to string
+            String.starts_with?(location, "https://")
+
+          _ ->
+            false
+        end
+
+      _ ->
+        false
+    end
+  end
+
 
   defp check_dnssec(domain) do
     domain
@@ -128,4 +149,3 @@ defmodule NetAdoption do
     |> Enum.join(".")
   end
 end
-

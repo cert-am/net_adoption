@@ -751,7 +751,7 @@ defmodule NetAdoptionWeb.CoreComponents do
     color = Enum.at(colors, trunc(rating - 1))
 
     ~H"""
-    <div class="flex gap-1">
+    <div class="flex justify-end items-center gap-1">
       <%= for _ <- 1..full_stars do %>
         <svg
           xmlns="http://www.w3.org/2000/svg"
