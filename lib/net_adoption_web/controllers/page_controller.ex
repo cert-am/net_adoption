@@ -15,7 +15,7 @@ defmodule NetAdoptionWeb.PageController do
     user_ip = get_user_ip(conn)
 
     conn
-    |> render(:home, 
+    |> render(:home,
       organizations_by_category: organizations,
       ipv4: user_ip.ipv4,
       ipv6: user_ip.ipv6
@@ -43,6 +43,7 @@ defmodule NetAdoptionWeb.PageController do
     |> assign(:ipv6_result, domain.ipv6)
     |> assign(:mx_result, domain.mx)
     |> assign(:tls_result, domain.tls)
+    |> assign(:http_redirect_to_https, domain.http_redirect_to_https)
     |> assign(:domain, domain.name)
     |> put_resp_header("HX-Push-Url", "/check/" <> URI.encode(params["domain"]))
     |> render(:check)
@@ -63,4 +64,3 @@ defmodule NetAdoptionWeb.PageController do
     render(conn, :show_category, organizations: organizations, category: category, rating: 5)
   end
 end
-

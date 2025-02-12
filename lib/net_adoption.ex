@@ -12,6 +12,7 @@ defmodule NetAdoption do
     ipv6 = check_ipv6(domain)
     mx = "MX"
     tls = check_tls(domain)
+    http_redirect_to_https = check_http_redirect_to_https(domain)
     dnssec = check_dnssec(domain)
 
     {
@@ -22,6 +23,7 @@ defmodule NetAdoption do
         ipv6: ipv6,
         mx: mx,
         tls: tls,
+        http_redirect_to_https: http_redirect_to_https,
         dnssec: dnssec
       }
     }
