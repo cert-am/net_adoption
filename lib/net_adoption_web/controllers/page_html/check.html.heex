@@ -4,9 +4,9 @@
     </div>
     <div class="w-full mt-5">
         <div class="flex flex-wrap-reverse items-center justify-between p-5">
-          <a href={"https://#{@domain}"} target="_blank" class="text-[#3a5f7e] font-bold text-4xl">
+            <a href={"https://#{@domain}"} target="_blank" class="text-[#3a5f7e] font-bold text-4xl">
                 <%= @domain %>
-          </a>
+            </a>
             <span class="hidden sm:flex">
                 <.draw_stars rating={5} size={32} />
             </span>
@@ -50,9 +50,10 @@
                         class="w-full sm:w-[49.5%] bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
                         <%= @tls_result %>
                     </div>
-                    <div
-                        class="w-full sm:w-[49.5%] bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
-                        <%= @http_redirect_to_https %>
+                    <div class={ "w-full sm:w-[49.5%] overflow-auto rounded-xl p-2 border-2 #{if @http_redirect_to_https, do: "
+                        text-green-500 bg-green-100 border-green-500", else: "text-red-500 bg-red-100 border-red-500" }"
+                        }>
+                        <%= if @http_redirect_to_https, do: "Redirects" , else: "Doesn't redirect" %>
                     </div>
                 </div>
             </div>
@@ -73,7 +74,7 @@
 
     </div>
 
-    <.previous_page_link/>
-    
-    
+    <.previous_page_link />
+
+
 </div>
