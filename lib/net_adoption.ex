@@ -10,18 +10,41 @@ defmodule NetAdoption do
   def check_domain(domain) do
     encoded_domain = :idna.encode(domain)
 
+    ipv4 = check_ipv4(encoded_domain)
+    ipv6 = check_ipv6(encoded_domain)
+    mx = check_mx_records(encoded_domain)
+    tls = check_tls(domain)
+    redirect = check_http_redirect_to_https(domain)
+    dnssec = check_dnssec(encoded_domain)
+
     {
       :ok,
       %{
         name: domain,
-        ipv4: check_ipv4(encoded_domain),
-        ipv6: check_ipv6(encoded_domain),
-        mx: check_mx_records(encoded_domain),
-        tls: check_tls(domain),
-        http_redirect_to_https: check_http_redirect_to_https(domain),
-        dnssec: check_dnssec(encoded_domain)
+        ipv4: ipv4,
+        ipv6: ipv6,
+        mx: mx,
+        tls: tls,
+        http_redirect_to_https: redirect,
+        dnssec: dnssec,
+        rating: calculate_rating(ipv4, ipv6, mx, tls, redirect, dnssec)
       }
     }
+  end
+
+  defp calculate_rating(ipv4, ipv6, mx, tls, redirect, dnssec) do
+    score = 0.0
+
+    score =
+      score +
+        (if is_list(ipv4) and ipv4 != [], do: 1.0, else: 0.0) +
+        (if is_list(ipv6) and ipv6 != [], do: 1.0, else: 0.0) +
+        (if is_binary(mx) and mx != "No such domain" and mx != "", do: 1.0, else: 0.0) +
+        (if tls, do: 0.5, else: 0.0) +
+        (if redirect, do: 0.5, else: 0.0) +
+        (if is_boolean(dnssec) and dnssec, do: 1.0, else: 0.0)
+
+    Float.round(score, 1)
   end
 
   defp check_tls(domain) do
@@ -42,6 +65,7 @@ defmodule NetAdoption do
           {'location', location} -> String.starts_with?(to_string(location), "https://")
           _ -> false
         end
+
       _ -> false
     end
   end
@@ -72,7 +96,9 @@ defmodule NetAdoption do
   end
 
   defp to_hex_ipv6({a, b, c, d, e, f, g, h}) do
-    [a, b, c, d, e, f, g, h] |> Enum.map(&Integer.to_string(&1, 16)) |> Enum.join(":")
+    [a, b, c, d, e, f, g, h]
+    |> Enum.map(&Integer.to_string(&1, 16))
+    |> Enum.join(":")
   end
 
   def check_ipv4(domain), do: has_ipv4?(domain)
@@ -92,7 +118,9 @@ defmodule NetAdoption do
   end
 
   defp to_dot_decimal_ipv4({a, b, c, d}) do
-    [a, b, c, d] |> Enum.map(&Integer.to_string/1) |> Enum.join(".")
+    [a, b, c, d]
+    |> Enum.map(&Integer.to_string/1)
+    |> Enum.join(".")
   end
 
   defp check_mx_records(domain) do
@@ -110,5 +138,4 @@ defmodule NetAdoption do
     |> Enum.map(fn {preference, exchange} -> "Priority: #{preference}  →  #{exchange}" end)
     |> Enum.join("\n")
   end
-
 end

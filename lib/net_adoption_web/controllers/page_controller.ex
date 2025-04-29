@@ -45,6 +45,7 @@ defmodule NetAdoptionWeb.PageController do
     |> assign(:tls_result, domain.tls)
     |> assign(:http_redirect_to_https, domain.http_redirect_to_https)
     |> assign(:domain, domain.name)
+    |> assign(:rating, domain.rating)
     |> put_resp_header("HX-Push-Url", "/check/" <> URI.encode(params["domain"]))
     |> render(:check)
   end
