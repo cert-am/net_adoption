@@ -2,6 +2,7 @@
     <div class="mx-auto w-[80%]">
         <.domain_checker domain={@domain} />
     </div>
+
     <div class="w-full mt-5">
         <div class="flex flex-wrap-reverse items-center justify-between p-5">
             <a href={"https://#{@domain}"} target="_blank" class="text-[#3a5f7e] font-bold text-4xl">
@@ -11,70 +12,85 @@
                 <.draw_stars rating={@rating} size={32} />
             </span>
         </div>
+
         <div class="flex flex-col p-5 shadow-2xl gap-2 rounded-2xl">
+
+            <!-- IPv4 -->
             <div class="flex flex-wrap justify-between gap-2">
                 <div class="w-[20%] sm:w-[10%] flex items-center">IPv4</div>
                 <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
-                    <div
-                        class="w-full p-2 overflow-auto text-green-500 bg-green-100 border-2 border-green-500 rounded-xl">
+                    <div class={ "w-full p-2 overflow-auto rounded-xl border-2 " <>
+                        if @ipv4_result == "No A records" or @ipv4_result == "No such domain", do: "text-red-500
+                        bg-red-100 border-red-500", else: "text-green-500 bg-green-100 border-green-500"
+                        }>
                         <%= @ipv4_result %>
                     </div>
                 </div>
             </div>
+
+            <!-- IPv6 -->
             <div class="flex flex-wrap justify-between gap-2">
                 <div class="w-[20%] sm:w-[10%] flex items-center">IPv6</div>
                 <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
-                    <div
-                        class="w-full p-2 overflow-auto text-green-500 bg-green-100 border-2 border-green-500 rounded-xl">
+                    <div class={ "w-full p-2 overflow-auto rounded-xl border-2 " <>
+                        if @ipv6_result == "No AAAA records" or @ipv6_result == "No such domain", do: "text-red-500
+                        bg-red-100 border-red-500", else: "text-green-500 bg-green-100 border-green-500"
+                        }>
                         <%= @ipv6_result %>
                     </div>
                 </div>
             </div>
+
+            <!-- MX -->
             <div class="flex flex-wrap justify-between gap-2">
                 <div class="w-[20%] sm:w-[10%] flex items-center">MX</div>
                 <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
-                    <div
-                        class="w-full sm:w-[49.5%] bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
-                        <%= @mx_result %>
-                    </div>
-                    <div
-                        class="w-full sm:w-[49.5%] bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
+                    <div class={ "w-full p-2 overflow-auto rounded-xl border-2 " <>
+                        if @mx_result == "No such domain" or @mx_result == "", do: "text-red-500 bg-red-100
+                        border-red-500", else: "text-green-500 bg-green-100 border-green-500"
+                        }>
                         <%= @mx_result %>
                     </div>
                 </div>
             </div>
+
+            <!-- HTTPS and Redirect -->
             <div class="flex flex-wrap justify-between gap-2">
                 <div class="w-[20%] sm:w-[10%] flex items-center">HTTPS</div>
                 <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
-                    <div
-                        class="w-full sm:w-[49.5%] bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
-                        <%= @tls_result %>
+                    <!-- TLS -->
+                    <div class={ "w-full sm:w-[49.5%] overflow-auto rounded-xl p-2 border-2 " <>
+                        if @tls_result, do: "text-green-500 bg-green-100 border-green-500", else: "text-red-500
+                        bg-red-100 border-red-500"
+                        }>
+                        <%= if @tls_result, do: "Supports HTTPS" , else: "No HTTPS" %>
                     </div>
-                    <div class={ "w-full sm:w-[49.5%] overflow-auto rounded-xl p-2 border-2 #{if @http_redirect_to_https, do: "
-                        text-green-500 bg-green-100 border-green-500", else: "text-red-500 bg-red-100 border-red-500" }"
+
+                    <!-- Redirect -->
+                    <div class={ "w-full sm:w-[49.5%] overflow-auto rounded-xl p-2 border-2 " <>
+                        if @http_redirect_to_https, do: "text-green-500 bg-green-100 border-green-500", else:
+                        "text-red-500 bg-red-100 border-red-500"
                         }>
                         <%= if @http_redirect_to_https, do: "Redirects" , else: "Doesn't redirect" %>
                     </div>
                 </div>
             </div>
+
+            <!-- DNSSEC -->
             <div class="flex flex-wrap justify-between gap-2">
                 <div class="w-[20%] sm:w-[10%] flex items-center">DNSSEC</div>
                 <div class="w-full md:w-[80%] flex justify-between gap-1 flex-wrap">
-                    <div
-                        class="w-full sm:w-[49.5%] bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
-                        <%= @dnssec_result %>
-                    </div>
-                    <div
-                        class="w-full sm:w-[49.5%] bg-green-100 border-2 border-green-500 rounded-xl p-2 text-green-500 overflow-auto">
-                        <%= @dnssec_result %>
+                    <div class={ "w-full p-2 overflow-auto rounded-xl border-2 " <>
+                        if @dnssec_result == true, do: "text-green-500 bg-green-100 border-green-500", else:
+                        "text-red-500 bg-red-100 border-red-500"
+                        }>
+                        <%= if @dnssec_result==true, do: "Enabled" , else: "Not enabled" %>
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 
     <.previous_page_link />
-
-
 </div>

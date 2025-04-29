@@ -37,12 +37,12 @@ defmodule NetAdoption do
 
     score =
       score +
-        (if is_list(ipv4) and ipv4 != [], do: 1.0, else: 0.0) +
-        (if is_list(ipv6) and ipv6 != [], do: 1.0, else: 0.0) +
-        (if is_binary(mx) and mx != "No such domain" and mx != "", do: 1.0, else: 0.0) +
-        (if tls, do: 0.5, else: 0.0) +
-        (if redirect, do: 0.5, else: 0.0) +
-        (if is_boolean(dnssec) and dnssec, do: 1.0, else: 0.0)
+        if(is_list(ipv4) and ipv4 != [], do: 1.0, else: 0.0) +
+        if(is_list(ipv6) and ipv6 != [], do: 1.0, else: 0.0) +
+        if(is_binary(mx) and mx != "No such domain" and mx != "", do: 1.0, else: 0.0) +
+        if(tls, do: 0.5, else: 0.0) +
+        if(redirect, do: 0.5, else: 0.0) +
+        if is_boolean(dnssec) and dnssec, do: 1.0, else: 0.0
 
     Float.round(score, 1)
   end
@@ -59,14 +59,20 @@ defmodule NetAdoption do
   defp check_http_redirect_to_https(domain) do
     url = "http://" <> domain
 
-    case :httpc.request(:get, {to_charlist(url), []}, [{:timeout, 5000}, {:autoredirect, false}], []) do
+    case :httpc.request(
+           :get,
+           {to_charlist(url), []},
+           [{:timeout, 5000}, {:autoredirect, false}],
+           []
+         ) do
       {:ok, {{_, status_code, _}, headers, _}} when status_code in [301, 302] ->
         case List.keyfind(headers, 'location', 0) do
           {'location', location} -> String.starts_with?(to_string(location), "https://")
           _ -> false
         end
 
-      _ -> false
+      _ ->
+        false
     end
   end
 
