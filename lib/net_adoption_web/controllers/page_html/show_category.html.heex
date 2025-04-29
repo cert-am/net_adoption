@@ -27,7 +27,7 @@
                                         https://<%= domain.domain %>
                                     </a>
                                     <a href={"/check/#{domain.domain}"}>
-                                        <.draw_stars rating={@rating} size={20} />
+                                        <.draw_stars rating={domain.rating || 0} size={20} />
                                     </a>
                                 </div>
                                 <% end %>
@@ -38,7 +38,7 @@
         </table>
     </div>
 
-    <.previous_page_link/>
-    
+    <.previous_page_link />
+
 
 </div>
